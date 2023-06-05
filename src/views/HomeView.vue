@@ -1,18 +1,51 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <h3>テキストバインディング</h3>
+    <span>{{ msg }}</span>
+
+    <h3>リストレンダリング</h3>
+    <ul id="item-list">
+      <li v-for="item in items" :key="item.id">
+        {{item.name}}
+      </li>
+    </ul>
+    <h3>イベントハンドリング</h3>
+    <button v-on:click="onClick">実行</button>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-
+declare interface Item {
+  id: number;
+  name: string;
+}
 export default defineComponent({
-  name: 'HomeView',
-  components: {
-    HelloWorld,
+  data() {
+    return {
+      msg: "Hello Vue.js!",
+      items: [
+        {
+          id: 1,
+          name: "キーボード"
+        },
+        {
+          id: 2,
+          name: "マウス"
+        }
+      ] as Item[]
+    };
   },
+  methods: {
+    onClick(): void {
+      alert(this.msg);
+    }
+  }
 });
 </script>
+
+<style scoped>
+.home {
+  text-align: left;
+}
+</style>
